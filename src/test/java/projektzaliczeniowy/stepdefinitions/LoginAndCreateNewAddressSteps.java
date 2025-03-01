@@ -6,17 +6,15 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Ad2LoginSteps {
+public class LoginAndCreateNewAddressSteps {
     private WebDriver driver;
 
     @Given("I'm on a mystore main page") //wklejamy zawartość kroku
@@ -34,30 +32,46 @@ public class Ad2LoginSteps {
         signInButton.click();
     }
 
-    @And("I enter email {string} and password {string}")
-    public void iEnterEmailAndPassword() {
-        String email = "rfeistppnujilwycig" + "@nbmbb.com";
+    @And("I enter email {email} and password {password}")
+    public void iEnterEmailEmailAndPasswordPassword() {
+        String email = "rfeistppnujilwycig@nbmbb.com";
         String password = "Hasło1234#@!";
         driver.findElement(By.id("field-email")).sendKeys(email);
         driver.findElement(By.id("field-password")).sendKeys(password);
         driver.findElement(By.id("submit-login")).click();
-
-
-
     }
 
 
     @Then("I'm on Your account page")
     public void iMOnYourAccountPage() {
         // Używamy WebDriverWait do oczekiwania na elementy na stronie
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(4));
         // Czekamy, aż element konta będzie widoczny
         WebElement accountPageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("account")));
+
+
+
     }
+
+    @And("I click to addresses tile on page")
+    public void iClickToAddressesTileOnPage() {
+        driver.findElement(By.className("link-item")).click();
+    }
+
+
+    @Then("I click {string}")
+    public void iClickCreateNewAddress() {
+        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=addresses");
+
+    }
+
+
 
     @And("I close browser")
     public void iCloseBrowser() {
         driver.quit();
     }
+
 }
+
 
