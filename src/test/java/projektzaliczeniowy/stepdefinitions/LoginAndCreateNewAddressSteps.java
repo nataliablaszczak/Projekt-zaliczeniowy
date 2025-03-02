@@ -11,18 +11,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.interactions.Actions;
+import io.cucumber.java.PendingException;
 
 
 import java.time.Duration;
+import java.util.List;
 
 public class LoginAndCreateNewAddressSteps {
     private WebDriver driver;
+
 
     @Given("I'm on a mystore main page") //wklejamy zawartość kroku
     public void openMystoreMainPage() {
         driver = new ChromeDriver();  //inicjalizujemy driver
         driver.manage().window().maximize(); //maksymalizujemy okienko przeglądarki
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3)); //ustawiamy czas załadowania formularza
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //ustawiamy czas załadowania formularza
         driver.get("https://mystore-testlab.coderslab.pl/"); //przechodzimy na stronę sklepu
 
     }
@@ -42,20 +46,28 @@ public class LoginAndCreateNewAddressSteps {
         driver.findElement(By.id("submit-login")).click();
     }
 
+    @Then("I'm successfully logged to My account page")
+    public void iMSuccessfullyLoggedToMyAccountPage() {
+        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=my-account");
 
-        @And("I click to addresses tile on page")
-        public void iClickToAddressesTileOnPage() {
-           driver.findElement(By.id("addresses-link")).click();
-        }
+    }
 
-
-        @And("I click create new address")
-        public void iClickCreateNewAddresses() {
-            driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=addresses");
-
-
-        }
-
+    @And("I go to addresses {string}")
+    public void iGoToAddresses(String string) {
+        driver.findElement(By.id("addresses-link")).sendKeys();
+        driver.get("https://prod-kurs.coderslab.pl/index.php?controller=addresses");
 
 
     }
+
+    @And("I go to Create New Address")
+    public void iGoToCreateNewAddress() {
+        driver.findElement(By.className("addresses-footer"));
+        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=address");
+    }
+
+}
+
+
+
+
