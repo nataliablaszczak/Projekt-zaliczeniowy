@@ -12,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
 import java.time.Duration;
 
 public class LoginAndCreateNewAddressSteps {
@@ -19,10 +20,10 @@ public class LoginAndCreateNewAddressSteps {
 
     @Given("I'm on a mystore main page") //wklejamy zawartość kroku
     public void openMystoreMainPage() {
-      driver = new ChromeDriver();  //inicjalizujemy driver
-      driver.manage().window().maximize(); //maksymalizujemy okienko przeglądarki
-      driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3)); //ustawiamy czas załadowania formularza
-      driver.get("https://mystore-testlab.coderslab.pl/"); //przechodzimy na stronę sklepu
+        driver = new ChromeDriver();  //inicjalizujemy driver
+        driver.manage().window().maximize(); //maksymalizujemy okienko przeglądarki
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3)); //ustawiamy czas załadowania formularza
+        driver.get("https://mystore-testlab.coderslab.pl/"); //przechodzimy na stronę sklepu
 
     }
 
@@ -32,8 +33,8 @@ public class LoginAndCreateNewAddressSteps {
         signInButton.click();
     }
 
-    @And("I enter email {email} and password {password}")
-    public void iEnterEmailEmailAndPasswordPassword() {
+    @And("I enter email and password")
+    public void iEnterEmailAndPassword() {
         String email = "rfeistppnujilwycig@nbmbb.com";
         String password = "Hasło1234#@!";
         driver.findElement(By.id("field-email")).sendKeys(email);
@@ -42,36 +43,19 @@ public class LoginAndCreateNewAddressSteps {
     }
 
 
-    @Then("I'm on Your account page")
-    public void iMOnYourAccountPage() {
-        // Używamy WebDriverWait do oczekiwania na elementy na stronie
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(4));
-        // Czekamy, aż element konta będzie widoczny
-        WebElement accountPageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("account")));
+        @And("I click to addresses tile on page")
+        public void iClickToAddressesTileOnPage() {
+           driver.findElement(By.id("addresses-link")).click();
+        }
+
+
+        @And("I click create new address")
+        public void iClickCreateNewAddresses() {
+            driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=addresses");
+
+
+        }
 
 
 
     }
-
-    @And("I click to addresses tile on page")
-    public void iClickToAddressesTileOnPage() {
-        driver.findElement(By.className("link-item")).click();
-    }
-
-
-    @Then("I click {string}")
-    public void iClickCreateNewAddress() {
-        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=addresses");
-
-    }
-
-
-
-    @And("I close browser")
-    public void iCloseBrowser() {
-        driver.quit();
-    }
-
-}
-
-
