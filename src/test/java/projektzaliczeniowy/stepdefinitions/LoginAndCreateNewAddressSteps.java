@@ -67,5 +67,23 @@ public class LoginAndCreateNewAddressSteps {
 
 //    @Then("I save address")
 //    public void iSaveAddress() {
+//        // Czekamy na formularz dodawania nowego adresu, aby upewnić się, że elementy są załadowane
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //
+//        WebElement aliasField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("field-alias")));
+//        WebElement addressField = driver.findElement(By.id("field-address1"));
+//        WebElement cityField = driver.findElement(By.id("field-city"));
+//        WebElement postalCodeField = driver.findElement(By.id("field-postcode"));
+//        WebElement saveButton = driver.findElement(By.id("submit-address"));
 //
+//        // Wypełniamy formularz danymi
+//        aliasField.sendKeys("Home");
+//        addressField.sendKeys("1234 Test Street");
+//        cityField.sendKeys("Test City");
+//        postalCodeField.sendKeys("12345");
+//
+//        // Klikamy przycisk "Zapisz"
+//        saveButton.click();
+//    }
+//
+//}
