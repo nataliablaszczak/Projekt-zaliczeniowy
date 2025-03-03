@@ -1,6 +1,5 @@
 package projektzaliczeniowy.stepdefinitions;
 
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -11,12 +10,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.interactions.Actions;
-import io.cucumber.java.PendingException;
-
 
 import java.time.Duration;
-import java.util.List;
+
 
 public class LoginAndCreateNewAddressSteps {
     private WebDriver driver;
@@ -46,27 +42,41 @@ public class LoginAndCreateNewAddressSteps {
         driver.findElement(By.id("submit-login")).click();
     }
 
-    @Then("I'm successfully logged to My account page")
-    public void iMSuccessfullyLoggedToMyAccountPage() {
-        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=my-account");
-
-    }
-
-    @And("I go to addresses {string}")
-    public void iGoToAddresses(String string) {
-        driver.findElement(By.id("addresses-link")).sendKeys();
-        driver.get("https://prod-kurs.coderslab.pl/index.php?controller=addresses");
-
-
+    @And("I go to addresses button")
+    public void iGoToAddressesButton() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.findElement(By.id("addresses-link")).click();
     }
 
     @And("I go to Create New Address")
     public void iGoToCreateNewAddress() {
-        driver.findElement(By.className("addresses-footer"));
+        driver.manage().deleteAllCookies();
         driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=address");
     }
 
+    @Then("I save address")
+    public void iSaveAddress() {
+        // Czekamy na formularz dodawania nowego adresu, aby upewnić się, że elementy są załadowane
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        WebElement aliasField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("field-alias")));
+        WebElement addressField = driver.findElement(By.id("field-address1"));
+        WebElement cityField = driver.findElement(By.id("field-city"));
+        WebElement postalCodeField = driver.findElement(By.id("field-postcode"));
+        WebElement saveButton = driver.findElement(By.id("submit-address"));
+
+        // Wypełniamy formularz danymi
+        aliasField.sendKeys("Home");
+        addressField.sendKeys("1234 Test Street");
+        cityField.sendKeys("Test City");
+        postalCodeField.sendKeys("12345");
+
+        // Klikamy przycisk "Zapisz"
+        saveButton.click();
+    }
 }
+
+
 
 
 
