@@ -6,6 +6,9 @@ Feature: Login to account and create new address
     And I enter email and password
     And I go to addresses button
     And I go to Create New Address
+    And I fill out the New Addres form
+    And I check the correctness
     Then I save address
+
 
 

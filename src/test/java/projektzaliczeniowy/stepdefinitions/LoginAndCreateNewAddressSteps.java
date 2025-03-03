@@ -65,8 +65,8 @@ public class LoginAndCreateNewAddressSteps {
     }
     }
 
-//    @Then("I save address")
-//    public void iSaveAddress() {
+//    @Then("I fill out the New Addres form")
+//    public void iFillOutTheNewAddress() {
 //        // Czekamy na formularz dodawania nowego adresu, aby upewnić się, że elementy są załadowane
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //
@@ -82,6 +82,14 @@ public class LoginAndCreateNewAddressSteps {
 //        cityField.sendKeys("Test City");
 //        postalCodeField.sendKeys("12345");
 //
+
+
+
+
+
+
+
+
 //        // Klikamy przycisk "Zapisz"
 //        saveButton.click();
 //    }
