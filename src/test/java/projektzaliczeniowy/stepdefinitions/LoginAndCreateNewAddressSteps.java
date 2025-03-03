@@ -63,38 +63,17 @@ public class LoginAndCreateNewAddressSteps {
 
     @And("I click Create New Address")
     public void iClickCreateNewAddress() {
-        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=addresses"); //Przechodzimy na stronę tworzenia nowego adresu
+        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=address");
+
     }
+
+//    @And("I fill in the form with {string}, {string}, {string}, {string}, {string}, {string}")
+//    public void iFillInTheFormWith(String alias, String address, String city, String postcode, String country, String phone) {
+//        driver.findElement(By.id("field-alias")).sendKeys(alias);
+//        driver.findElement(By.id("field-city")).sendKeys(city);
+//        driver.findElement(By.id("field-postcode")).sendKeys(postcode);
+//        driver.findElement(By.id("field-id_country")).sendKeys(country);
+//        driver.findElement(By.id("field-phone")).sendKeys(phone);
+
     }
 
-//    @Then("I fill in the New Addres form")
-//    public void iFillOutTheNewAddress() {
-
-//        // Czekamy na formularz dodawania nowego adresu, aby upewnić się, że elementy są załadowane
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//        WebElement aliasField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("field-alias")));
-//        WebElement addressField = driver.findElement(By.id("field-address1"));
-//        WebElement cityField = driver.findElement(By.id("field-city"));
-//        WebElement postalCodeField = driver.findElement(By.id("field-postcode"));
-//        WebElement saveButton = driver.findElement(By.id("submit-address"));
-//
-//        // Wypełniamy formularz danymi
-//        aliasField.sendKeys("Home");
-//        addressField.sendKeys("1234 Test Street");
-//        cityField.sendKeys("Test City");
-//        postalCodeField.sendKeys("12345");
-//
-
-
-
-
-
-
-
-
-//        // Klikamy przycisk "Zapisz"
-//        saveButton.click();
-//    }
-//
-//}
