@@ -21,6 +21,8 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
+import static org.junit.Assert.assertTrue;
+
 
 public class LoginAndCreateNewAddressSteps {
     private WebDriver driver;
@@ -45,28 +47,29 @@ public class LoginAndCreateNewAddressSteps {
     public void iEnterEmailAndPassword() {
         String email = "rfeistppnujilwycig@nbmbb.com";
         String password = "Hasło1234#@!";
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("field-email")));
-        emailField.sendKeys(email);
         driver.findElement(By.className("form-control")).sendKeys(email);
         driver.findElement(By.name("password")).sendKeys(password);
         driver.findElement(By.id("submit-login")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement userInfo = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("user-info")));
+        assertTrue(userInfo.isDisplayed());
     }
 
     @And("I go to addresses button")
     public void iGoToAddressesButton() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.findElement(By.id("addresses-link")).click(); //Klikamy przycisk, który przenosi nas do sekcji adresów
     }
 
-    @And("I go to Create New Address")
-    public void iGoToCreateNewAddress() {
-        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=address"); //Przechodzimy na stronę tworzenia nowego adresu
+    @And("I click Create New Address")
+    public void iClickCreateNewAddress() {
+        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=addresses"); //Przechodzimy na stronę tworzenia nowego adresu
     }
     }
 
-//    @Then("I fill out the New Addres form")
+//    @Then("I fill in the New Addres form")
 //    public void iFillOutTheNewAddress() {
+
 //        // Czekamy na formularz dodawania nowego adresu, aby upewnić się, że elementy są załadowane
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //
