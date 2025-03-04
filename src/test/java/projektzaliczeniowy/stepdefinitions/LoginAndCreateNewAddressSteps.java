@@ -12,14 +12,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertTrue;
 
@@ -61,19 +60,55 @@ public class LoginAndCreateNewAddressSteps {
         driver.findElement(By.id("addresses-link")).click(); //Klikamy przycisk, który przenosi nas do sekcji adresów
     }
 
-    @And("I click Create New Address")
+    @When("I click Create New Address")
     public void iClickCreateNewAddress() {
-        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=address");
+        driver.findElement(By.linkText("\uE145 Create new address")).click();
 
     }
 
-//    @And("I fill in the form with {string}, {string}, {string}, {string}, {string}, {string}")
-//    public void iFillInTheFormWith(String alias, String address, String city, String postcode, String country, String phone) {
-//        driver.findElement(By.id("field-alias")).sendKeys(alias);
-//        driver.findElement(By.id("field-city")).sendKeys(city);
-//        driver.findElement(By.id("field-postcode")).sendKeys(postcode);
-//        driver.findElement(By.id("field-id_country")).sendKeys(country);
-//        driver.findElement(By.id("field-phone")).sendKeys(phone);
+    @And("I fill in the form with {string}, {string}, {string}, {string}, {string}, {string}")
+    public void iFillInTheFormWith(String alias, String address, String city, String postcode, String country, String phone) {
+        driver.findElement(By.id("field-alias")).sendKeys(alias);
+        driver.findElement(By.id("field-city")).sendKeys(city);
+        driver.findElement(By.id("field-postcode")).sendKeys(postcode);
+        driver.findElement(By.id("field-id_country")).sendKeys(country);
+        driver.findElement(By.id("field-phone")).sendKeys(phone);
 
     }
 
+
+    @Then("I check that the last address has {string}, {string}, {string}, {string}, {string}, {string}")
+    public void iCheckThatTheLastAddress(String alias, String address, String postcode, String country, String phone) {
+        System.out.println(alias + address + postcode + country + phone);
+
+    }
+}
+
+//      // Wybieranie kraju z rozwijanej listy (przykład, musisz dostosować do swojego formularza)
+////        WebElement countryDropdown = driver.findElement(By.id("country"));
+////        Select select = new Select(countryDropdown);
+////        select.selectByVisibleText(country);
+////
+////        driver.findElement(By.id("phone")).sendKeys(phone);
+////
+////        // Możesz dodać kliknięcie przycisku do zapisania adresu, jeśli jest wymagane
+////        driver.findElement(By.id("save-address")).click();
+////
+///
+////
+////    @Then("I check that the last address has {string}, {string}, {string}, {string}, {string}, {string}")
+////    public void iCheckThatTheLastAddress (String alias, String address, String postcode, String country, String phone) {
+////        System.out.println(alias + address + postcode + country + phone);
+////    }
+////
+////
+////
+//////    @And("I fill in the form with {string}, {string}, {string}, {string}, {string}, {string}")
+//////    public void iFillInTheFormWith(String alias, String address, String city, String postcode, String country, String phone) {
+//////        driver.findElement(By.id("field-alias")).sendKeys(alias);
+//////        driver.findElement(By.id("field-city")).sendKeys(city);
+//////        driver.findElement(By.id("field-postcode")).sendKeys(postcode);
+//////        driver.findElement(By.id("field-id_country")).sendKeys(country);
+//////        driver.findElement(By.id("field-phone")).sendKeys(phone);
+////
+////
