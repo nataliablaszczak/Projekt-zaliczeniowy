@@ -66,16 +66,18 @@ public class LoginAndCreateNewAddressSteps {
 
     }
 
-    @And("I fill in the form with {string}, {string}, {string}, {string}, {string}, {string}")
+    @And("I fill in the form with {string},{string}, {string}, {string}, {string}, {string}")
     public void iFillInTheFormWith(String alias, String address, String city, String postcode, String country, String phone) {
         driver.findElement(By.id("field-alias")).sendKeys(alias);
+        driver.findElement(By.id("field-address1")).sendKeys(address);
         driver.findElement(By.id("field-city")).sendKeys(city);
         driver.findElement(By.id("field-postcode")).sendKeys(postcode);
-        driver.findElement(By.id("field-id_country")).sendKeys(country);
+        WebElement countryDropdown = driver.findElement(By.id("field-id_country"));
+        Select select = new Select(countryDropdown);
+        select.selectByVisibleText(country);
         driver.findElement(By.id("field-phone")).sendKeys(phone);
 
     }
-
 
     @Then("I check that the last address has {string}, {string}, {string}, {string}, {string}, {string}")
     public void iCheckThatTheLastAddress(String alias, String address, String postcode, String country, String phone) {
@@ -84,31 +86,4 @@ public class LoginAndCreateNewAddressSteps {
     }
 }
 
-//      // Wybieranie kraju z rozwijanej listy (przykład, musisz dostosować do swojego formularza)
-////        WebElement countryDropdown = driver.findElement(By.id("country"));
-////        Select select = new Select(countryDropdown);
-////        select.selectByVisibleText(country);
-////
-////        driver.findElement(By.id("phone")).sendKeys(phone);
-////
-////        // Możesz dodać kliknięcie przycisku do zapisania adresu, jeśli jest wymagane
-////        driver.findElement(By.id("save-address")).click();
-////
-///
-////
-////    @Then("I check that the last address has {string}, {string}, {string}, {string}, {string}, {string}")
-////    public void iCheckThatTheLastAddress (String alias, String address, String postcode, String country, String phone) {
-////        System.out.println(alias + address + postcode + country + phone);
-////    }
-////
-////
-////
-//////    @And("I fill in the form with {string}, {string}, {string}, {string}, {string}, {string}")
-//////    public void iFillInTheFormWith(String alias, String address, String city, String postcode, String country, String phone) {
-//////        driver.findElement(By.id("field-alias")).sendKeys(alias);
-//////        driver.findElement(By.id("field-city")).sendKeys(city);
-//////        driver.findElement(By.id("field-postcode")).sendKeys(postcode);
-//////        driver.findElement(By.id("field-id_country")).sendKeys(country);
-//////        driver.findElement(By.id("field-phone")).sendKeys(phone);
-////
-////
+
