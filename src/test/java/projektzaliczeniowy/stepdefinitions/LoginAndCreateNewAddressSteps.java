@@ -66,8 +66,8 @@ public class LoginAndCreateNewAddressSteps {
 
     }
 
-    @And("I fill in the form with {string},{string}, {string}, {string}, {string}, {string}")
-    public void iFillInTheFormWith(String alias, String address, String city, String postcode, String country, String phone) {
+    @And("I fill in the form with {string},{string},{string},{string},{string},{string}")
+    public void iFillInTheFormWith(String alias,String address,String city,String postcode,String country,String phone) {
         driver.findElement(By.id("field-alias")).sendKeys(alias);
         driver.findElement(By.id("field-address1")).sendKeys(address);
         driver.findElement(By.id("field-city")).sendKeys(city);
@@ -83,7 +83,16 @@ public class LoginAndCreateNewAddressSteps {
     public void iCheckThatTheLastAddress(String alias, String address, String postcode, String country, String phone) {
         System.out.println(alias + address + postcode + country + phone);
 
+
     }
+
+    @And("I close browser")
+    public void iCloseBrowser() {
+        if (driver != null) {
+            driver.quit();
+    }
+}
+
 }
 
 
