@@ -6,18 +6,18 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import java.time.Duration;
 
 
 import static org.junit.Assert.assertTrue;
@@ -67,7 +67,7 @@ public class LoginAndCreateNewAddressSteps {
     }
 
     @And("I fill in the form with {string},{string},{string},{string},{string},{string}")
-    public void iFillInTheFormWith(String alias,String address,String city,String postcode,String country,String phone) {
+    public void iFillInTheFormWith(String alias, String address, String city, String postcode, String country, String phone) {
         driver.findElement(By.id("field-alias")).sendKeys(alias);
         driver.findElement(By.id("field-address1")).sendKeys(address);
         driver.findElement(By.id("field-city")).sendKeys(city);
@@ -77,12 +77,24 @@ public class LoginAndCreateNewAddressSteps {
         select.selectByVisibleText(country);
         driver.findElement(By.id("field-phone")).sendKeys(phone);
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement saveButton = driver.findElement(By.xpath("//button[contains(text(),'Save')]"));
+        saveButton.click();
+
+
     }
 
-    @Then("I check that the last address has {string}, {string}, {string}, {string}, {string}, {string}")
-    public void iCheckThatTheLastAddress(String alias, String address, String postcode, String country, String phone) {
-        System.out.println(alias + address + postcode + country + phone);
+    @Then("I check that the last address has {string},{string},{string},{string},{string},{string}")
+    public void iCheckThatTheLastAddress(String alias, String address, String city, String postcode, String country, String phone) {
+        System.out.println(alias + address + city + postcode + country + phone);
+        WebElement secondAddress = driver.findElement(By.xpath("(//div[@class='address-body'])[2]/address"));
 
+        String actualText = secondAddress.getText().trim();
+
+        //Tworzymy oczekiwany tekst z odpowiednimi separatorami (nowa linia)
+        String expectedText = String.join("\n",alias,address,city,postcode,country,phone);
+
+        Assert.assertEquals("Adres nie jest poprawny!",expectedText,actualText);
 
     }
 
@@ -90,8 +102,8 @@ public class LoginAndCreateNewAddressSteps {
     public void iCloseBrowser() {
         if (driver != null) {
             driver.quit();
+        }
     }
-}
 
 }
 
